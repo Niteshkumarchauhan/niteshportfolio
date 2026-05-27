@@ -1,66 +1,42 @@
-import { motion } from 'framer-motion'
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
+import { motion } from "framer-motion";
+import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      description: 'A full-featured e-commerce application with product catalog, shopping cart, and payment integration.',
-      image: '🛍️',
-      technologies: ['React', 'Tailwind CSS', 'Node.js', 'MongoDB'],
-      github: 'https://github.com',
-      live: 'https://example.com',
+      title: "Pro-Dash",
+      description:
+        "A sleek and powerful admin dashboard built with React and Tailwind CSS. Features interactive charts, data tables, dark/light mode toggle, and a fully responsive layout — perfect for managing business metrics at a glance.",
+      image: "�",
+      technologies: ["React", "Tailwind CSS", "Recharts", "React Router"],
+      github: "https://github.com/Niteshkumarchauhan/Pro-Dashboard",
+      live: "https://pro-dashboard-ruby.vercel.app/",
       featured: true,
     },
     {
       id: 2,
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates and team collaboration features.',
-      image: '✓',
-      technologies: ['React', 'Firebase', 'Tailwind CSS'],
-      github: 'https://github.com',
-      live: 'https://example.com',
+      title: "Smart Todo List",
+      description:
+        "A clean and intuitive task management app that helps you stay organized. Supports adding, editing, deleting, and marking tasks as complete — with a minimal UI and smooth animations for a satisfying user experience.",
+      image: "✅",
+      technologies: ["React", "Tailwind CSS", "LocalStorage", "Framer Motion"],
+      github: "https://github.com/Niteshkumarchauhan/smartTodoList",
+      live: "https://smart-todo-list-five.vercel.app/",
       featured: true,
     },
     {
       id: 3,
-      title: 'Weather Dashboard',
-      description: 'Real-time weather dashboard with geolocation, forecasts, and interactive maps.',
-      image: '🌤️',
-      technologies: ['React', 'OpenWeather API', 'Tailwind CSS'],
-      github: 'https://github.com',
-      live: 'https://example.com',
+      title: "Movie Search App",
+      description:
+        "A fast and responsive movie discovery app powered by the OMDB API. Search any movie by title and instantly get details like ratings, genre, cast, and plot — all wrapped in a modern card-based UI.",
+      image: "�",
+      technologies: ["React", "OMDB API", "Tailwind CSS", "Axios"],
+      github: "https://github.com/Niteshkumarchauhan/movie-Search-App",
+      live: "https://movie-search-app-dusky-kappa.vercel.app/",
       featured: true,
     },
-    {
-      id: 4,
-      title: 'Portfolio Website',
-      description: 'Beautiful and responsive portfolio website with smooth animations and modern design.',
-      image: '💼',
-      technologies: ['React', 'Framer Motion', 'Tailwind CSS'],
-      github: 'https://github.com',
-      live: 'https://example.com',
-    },
-    {
-      id: 5,
-      title: 'Blog Platform',
-      description: 'A blogging platform with markdown support, commenting system, and user authentication.',
-      image: '📝',
-      technologies: ['React', 'GraphQL', 'Node.js'],
-      github: 'https://github.com',
-      live: 'https://example.com',
-    },
-    {
-      id: 6,
-      title: 'Fitness Tracker',
-      description: 'Mobile-friendly fitness tracking app with workout logging and progress visualization.',
-      image: '💪',
-      technologies: ['React Native', 'Firebase', 'Chart.js'],
-      github: 'https://github.com',
-      live: 'https://example.com',
-    },
-  ]
+  ];
 
   const container = {
     hidden: { opacity: 0 },
@@ -70,12 +46,12 @@ const Projects = () => {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const item = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
-  }
+  };
 
   return (
     <motion.section
@@ -96,61 +72,67 @@ const Projects = () => {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
         >
-          {projects.filter((p) => p.featured).map((project) => (
-            <motion.div
-              key={project.id}
-              variants={item}
-              whileHover={{ y: -10 }}
-              className="card-hover group bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-blue-500/20"
-            >
-              {/* Project Image */}
-              <div className="relative h-48 bg-gradient-accent/20 flex items-center justify-center overflow-hidden">
-                <div className="text-7xl group-hover:scale-110 transition-transform duration-300">
-                  {project.image}
+          {projects
+            .filter((p) => p.featured)
+            .map((project) => (
+              <motion.div
+                key={project.id}
+                variants={item}
+                whileHover={{ y: -10 }}
+                className="card-hover group bg-slate-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-blue-500/20"
+              >
+                {/* Project Image */}
+                <div className="relative h-48 bg-gradient-accent/20 flex items-center justify-center overflow-hidden">
+                  <div className="text-7xl group-hover:scale-110 transition-transform duration-300">
+                    {project.image}
+                  </div>
                 </div>
-              </div>
 
-              {/* Project Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                <p className="text-gray-400 mb-4 line-clamp-2">{project.description}</p>
+                {/* Project Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-400 mb-4 line-clamp-2">
+                    {project.description}
+                  </p>
 
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs font-semibold"
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs font-semibold"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Links */}
+                  <div className="flex gap-4">
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-700/50 hover:bg-blue-500/20 text-gray-300 hover:text-blue-400 transition-colors"
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      <FaGithub /> Code
+                    </motion.a>
+                    <motion.a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 transition-colors"
+                    >
+                      <FaExternalLinkAlt /> Live Demo
+                    </motion.a>
+                  </div>
                 </div>
-
-                {/* Links */}
-                <div className="flex gap-4">
-                  <motion.a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-700/50 hover:bg-blue-500/20 text-gray-300 hover:text-blue-400 transition-colors"
-                  >
-                    <FaGithub /> Code
-                  </motion.a>
-                  <motion.a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 transition-colors"
-                  >
-                    <FaExternalLinkAlt /> Live Demo
-                  </motion.a>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
         </motion.div>
       </div>
 
@@ -169,50 +151,56 @@ const Projects = () => {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {projects.filter((p) => !p.featured).map((project) => (
-            <motion.div
-              key={project.id}
-              variants={item}
-              whileHover={{ y: -5 }}
-              className="card-hover bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-blue-500/20 flex flex-col"
-            >
-              <div className="text-5xl mb-4">{project.image}</div>
-              <h4 className="text-lg font-bold text-white mb-2">{project.title}</h4>
-              <p className="text-gray-400 text-sm mb-4 flex-grow">{project.description}</p>
+          {projects
+            .filter((p) => !p.featured)
+            .map((project) => (
+              <motion.div
+                key={project.id}
+                variants={item}
+                whileHover={{ y: -5 }}
+                className="card-hover bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-blue-500/20 flex flex-col"
+              >
+                <div className="text-5xl mb-4">{project.image}</div>
+                <h4 className="text-lg font-bold text-white mb-2">
+                  {project.title}
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 flex-grow">
+                  {project.description}
+                </p>
 
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.technologies.slice(0, 2).map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2 py-1 rounded text-xs bg-blue-500/20 text-blue-300"
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.slice(0, 2).map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 rounded text-xs bg-blue-500/20 text-blue-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-3">
+                  <motion.a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    className="text-gray-400 hover:text-blue-400 transition-colors"
                   >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex gap-3">
-                <motion.a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  className="text-gray-400 hover:text-blue-400 transition-colors"
-                >
-                  <FaGithub size={20} />
-                </motion.a>
-                <motion.a
-                  href={project.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  className="text-gray-400 hover:text-blue-400 transition-colors"
-                >
-                  <FaExternalLinkAlt size={20} />
-                </motion.a>
-              </div>
-            </motion.div>
-          ))}
+                    <FaGithub size={20} />
+                  </motion.a>
+                  <motion.a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    className="text-gray-400 hover:text-blue-400 transition-colors"
+                  >
+                    <FaExternalLinkAlt size={20} />
+                  </motion.a>
+                </div>
+              </motion.div>
+            ))}
         </motion.div>
       </motion.div>
 
@@ -235,7 +223,7 @@ const Projects = () => {
         </motion.a>
       </motion.div>
     </motion.section>
-  )
-}
+  );
+};
 
-export default Projects
+export default Projects;
