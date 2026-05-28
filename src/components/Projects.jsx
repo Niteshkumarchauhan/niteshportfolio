@@ -5,6 +5,17 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
+      title: "Mantra Labs Website",
+      description:
+        "A professional corporate website for Mantra Labs Global, showcasing their services, expertise, and innovative solutions. Built with modern web technologies to deliver a seamless user experience and responsive design across all devices.",
+      image: "🌐",
+      technologies: ["HTML", "CSS", "JavaScript", "jQuery", "WordPress"],
+      github: null,
+      live: "https://www.mantralabsglobal.com/",
+      featured: true,
+    },
+    {
+      id: 2,
       title: "Pro-Dash",
       description:
         "A sleek and powerful admin dashboard built with React and Tailwind CSS. Features interactive charts, data tables, dark/light mode toggle, and a fully responsive layout — perfect for managing business metrics at a glance.",
@@ -15,7 +26,7 @@ const Projects = () => {
       featured: true,
     },
     {
-      id: 2,
+      id: 3,
       title: "Smart Todo List",
       description:
         "A clean and intuitive task management app that helps you stay organized. Supports adding, editing, deleting, and marking tasks as complete — with a minimal UI and smooth animations for a satisfying user experience.",
@@ -26,7 +37,7 @@ const Projects = () => {
       featured: true,
     },
     {
-      id: 3,
+      id: 4,
       title: "Movie Search App",
       description:
         "A fast and responsive movie discovery app powered by the OMDB API. Search any movie by title and instantly get details like ratings, genre, cast, and plot — all wrapped in a modern card-based UI.",
@@ -109,15 +120,17 @@ const Projects = () => {
 
                 {/* Links */}
                 <div className="flex gap-4">
-                  <motion.a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-700/50 hover:bg-blue-500/20 text-gray-300 hover:text-blue-400 transition-colors"
-                  >
-                    <FaGithub /> Code
-                  </motion.a>
+                  {project.github && (
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-700/50 hover:bg-blue-500/20 text-gray-300 hover:text-blue-400 transition-colors"
+                    >
+                      <FaGithub /> Code
+                    </motion.a>
+                  )}
                   <motion.a
                     href={project.live}
                     target="_blank"
