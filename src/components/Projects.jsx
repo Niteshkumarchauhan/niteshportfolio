@@ -47,6 +47,17 @@ const Projects = () => {
       live: "https://movie-search-app-dusky-kappa.vercel.app/",
       featured: true,
     },
+    {
+      id: 5,
+      title: "Weather App",
+      description:
+        "A clean weather dashboard that lets users check current conditions and forecasts with a simple, modern interface. It provides real-time weather details, location-based search, and a smooth responsive experience.",
+      image: "🌤️",
+      technologies: ["React", "OpenWeather API", "Tailwind CSS", "Axios"],
+      github: "https://github.com/Niteshkumarchauhan/weather-app",
+      live: "https://weather-app-example.vercel.app/",
+      featured: true,
+    },
   ];
 
   const container = {
