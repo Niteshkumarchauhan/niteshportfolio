@@ -44,7 +44,7 @@ const Projects = () => {
       image: "🎬",
       technologies: ["React", "OMDB API", "Tailwind CSS", "Axios"],
       github: "https://github.com/Niteshkumarchauhan/movie-Search-App",
-      live: "https://movie-search-app-dusky-kappa.vercel.app/",
+      live: "https://weather-app-pink-two-15.vercel.app/",
       featured: true,
     },
     {
