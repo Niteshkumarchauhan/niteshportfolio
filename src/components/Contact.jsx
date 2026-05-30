@@ -200,7 +200,9 @@ const Contact = () => {
                 onChange={handleChange}
                 placeholder="Your name"
                 className={`w-full px-4 py-3 bg-slate-800/50 border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:bg-slate-800 transition-colors ${
-                  errors.name ? "border-red-500 focus:border-red-400" : "border-blue-500/30 focus:border-blue-400"
+                  errors.name
+                    ? "border-red-500 focus:border-red-400"
+                    : "border-blue-500/30 focus:border-blue-400"
                 }`}
               />
               {errors.name && (
@@ -227,7 +229,9 @@ const Contact = () => {
                 onChange={handleChange}
                 placeholder="your.email@example.com"
                 className={`w-full px-4 py-3 bg-slate-800/50 border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:bg-slate-800 transition-colors ${
-                  errors.email ? "border-red-500 focus:border-red-400" : "border-blue-500/30 focus:border-blue-400"
+                  errors.email
+                    ? "border-red-500 focus:border-red-400"
+                    : "border-blue-500/30 focus:border-blue-400"
                 }`}
               />
               {errors.email && (
@@ -254,7 +258,9 @@ const Contact = () => {
                 onChange={handleChange}
                 placeholder="What's this about?"
                 className={`w-full px-4 py-3 bg-slate-800/50 border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:bg-slate-800 transition-colors ${
-                  errors.subject ? "border-red-500 focus:border-red-400" : "border-blue-500/30 focus:border-blue-400"
+                  errors.subject
+                    ? "border-red-500 focus:border-red-400"
+                    : "border-blue-500/30 focus:border-blue-400"
                 }`}
               />
               {errors.subject && (
@@ -281,7 +287,9 @@ const Contact = () => {
                 placeholder="Your message here..."
                 rows="5"
                 className={`w-full px-4 py-3 bg-slate-800/50 border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:bg-slate-800 transition-colors resize-none ${
-                  errors.message ? "border-red-500 focus:border-red-400" : "border-blue-500/30 focus:border-blue-400"
+                  errors.message
+                    ? "border-red-500 focus:border-red-400"
+                    : "border-blue-500/30 focus:border-blue-400"
                 }`}
               ></textarea>
               {errors.message && (
@@ -309,7 +317,11 @@ const Contact = () => {
                     : "btn-primary"
                 }`}
               >
-                {loading ? "Sending..." : submitted ? "Message Sent! 🎉" : "Send Message"}
+                {loading
+                  ? "Sending..."
+                  : submitted
+                    ? "Message Sent! 🎉"
+                    : "Send Message"}
               </motion.button>
             </motion.div>
 
@@ -322,8 +334,6 @@ const Contact = () => {
                 className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-300 text-center flex items-center justify-center gap-2"
               >
                 <FaCheckCircle /> Thank you! I'll get back to you soon.
-              </motion.div>
-            )}
               </motion.div>
             )}
           </form>
