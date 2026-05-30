@@ -152,13 +152,25 @@ const About = () => {
           <motion.div
             key={achievement.title}
             whileHover={{ y: -10 }}
-            className="card-hover bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-blue-500/20"
+            className="group relative"
           >
-            <p className="text-4xl mb-3">{achievement.icon}</p>
-            <h4 className="text-lg font-bold text-white mb-2">
-              {achievement.title}
-            </h4>
-            <p className="text-gray-400 text-sm">{achievement.description}</p>
+            {/* Animated gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-purple-500/0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+
+            <div className="card-hover relative bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-blue-500/20 group-hover:border-blue-400/50 transition-colors">
+              <motion.p
+                whileHover={{ scale: 1.2 }}
+                className="text-4xl mb-3 inline-block"
+              >
+                {achievement.icon}
+              </motion.p>
+              <h4 className="text-lg font-bold text-white mb-2 group-hover:gradient-text transition-all">
+                {achievement.title}
+              </h4>
+              <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">
+                {achievement.description}
+              </p>
+            </div>
           </motion.div>
         ))}
       </motion.div>

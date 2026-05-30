@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaCheckCircle,
+  FaExclamationCircle,
+} from "react-icons/fa";
+import emailjs from "emailjs-com";
 
 const Contact = () => {
+  const form = useRef();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -10,6 +18,25 @@ const Contact = () => {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    else if (!validateEmail(formData.email))
+      newErrors.email = "Invalid email format";
+    if (!formData.subject.trim()) newErrors.subject = "Subject is required";
+    if (!formData.message.trim()) newErrors.message = "Message is required";
+    return newErrors;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,20 +44,41 @@ const Contact = () => {
       ...prev,
       [name]: value,
     }));
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      formData.name &&
-      formData.email &&
-      formData.subject &&
-      formData.message
-    ) {
-      console.log("Form submitted:", formData);
+    const newErrors = validateForm();
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
+    try {
+      emailjs.init("VxvBAQnlI4KCgJArX");
+      await emailjs.sendForm(
+        "service_u5g7vjf",
+        "template_6bkbmds",
+        form.current,
+      );
       setSubmitted(true);
       setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setSubmitted(false), 3000);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError("Failed to send message. Please try again or contact directly.");
+      console.error("Email error:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -123,7 +171,18 @@ const Contact = () => {
           viewport={{ once: true }}
           className="lg:col-span-2"
         >
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form ref={form} onSubmit={handleSubmit} className="space-y-6">
+            {/* Error Message */}
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-300 flex items-center gap-2"
+              >
+                <FaExclamationCircle /> {error}
+              </motion.div>
+            )}
+
             {/* Name Field */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
@@ -140,8 +199,15 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Your name"
-                className="w-full px-4 py-3 bg-slate-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:bg-slate-800 transition-colors"
+                className={`w-full px-4 py-3 bg-slate-800/50 border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:bg-slate-800 transition-colors ${
+                  errors.name ? "border-red-500 focus:border-red-400" : "border-blue-500/30 focus:border-blue-400"
+                }`}
               />
+              {errors.name && (
+                <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
+                  <FaExclamationCircle className="text-xs" /> {errors.name}
+                </p>
+              )}
             </motion.div>
 
             {/* Email Field */}
@@ -160,8 +226,15 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="your.email@example.com"
-                className="w-full px-4 py-3 bg-slate-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:bg-slate-800 transition-colors"
+                className={`w-full px-4 py-3 bg-slate-800/50 border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:bg-slate-800 transition-colors ${
+                  errors.email ? "border-red-500 focus:border-red-400" : "border-blue-500/30 focus:border-blue-400"
+                }`}
               />
+              {errors.email && (
+                <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
+                  <FaExclamationCircle className="text-xs" /> {errors.email}
+                </p>
+              )}
             </motion.div>
 
             {/* Subject Field */}
@@ -180,8 +253,15 @@ const Contact = () => {
                 value={formData.subject}
                 onChange={handleChange}
                 placeholder="What's this about?"
-                className="w-full px-4 py-3 bg-slate-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:bg-slate-800 transition-colors"
+                className={`w-full px-4 py-3 bg-slate-800/50 border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:bg-slate-800 transition-colors ${
+                  errors.subject ? "border-red-500 focus:border-red-400" : "border-blue-500/30 focus:border-blue-400"
+                }`}
               />
+              {errors.subject && (
+                <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
+                  <FaExclamationCircle className="text-xs" /> {errors.subject}
+                </p>
+              )}
             </motion.div>
 
             {/* Message Field */}
@@ -200,8 +280,15 @@ const Contact = () => {
                 onChange={handleChange}
                 placeholder="Your message here..."
                 rows="5"
-                className="w-full px-4 py-3 bg-slate-800/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 focus:bg-slate-800 transition-colors resize-none"
+                className={`w-full px-4 py-3 bg-slate-800/50 border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:bg-slate-800 transition-colors resize-none ${
+                  errors.message ? "border-red-500 focus:border-red-400" : "border-blue-500/30 focus:border-blue-400"
+                }`}
               ></textarea>
+              {errors.message && (
+                <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
+                  <FaExclamationCircle className="text-xs" /> {errors.message}
+                </p>
+              )}
             </motion.div>
 
             {/* Submit Button */}
@@ -213,11 +300,16 @@ const Contact = () => {
             >
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full btn-primary py-4"
+                disabled={loading}
+                whileHover={{ scale: loading ? 1 : 1.05 }}
+                whileTap={{ scale: loading ? 1 : 0.95 }}
+                className={`w-full py-4 font-semibold rounded-lg transition-all ${
+                  loading
+                    ? "bg-blue-500/50 text-blue-200 cursor-not-allowed"
+                    : "btn-primary"
+                }`}
               >
-                {submitted ? "Message Sent! 🎉" : "Send Message"}
+                {loading ? "Sending..." : submitted ? "Message Sent! 🎉" : "Send Message"}
               </motion.button>
             </motion.div>
 
@@ -227,9 +319,11 @@ const Contact = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-300 text-center"
+                className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-300 text-center flex items-center justify-center gap-2"
               >
-                Thank you! I'll get back to you soon.
+                <FaCheckCircle /> Thank you! I'll get back to you soon.
+              </motion.div>
+            )}
               </motion.div>
             )}
           </form>

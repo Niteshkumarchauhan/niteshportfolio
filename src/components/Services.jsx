@@ -109,45 +109,51 @@ const Services = () => {
           <motion.div
             key={index}
             variants={item}
-            whileHover={{
-              y: -10,
-              boxShadow: "0 20px 50px rgba(59, 130, 246, 0.3)",
-            }}
-            className="card-hover group bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-blue-500/20 transition-all duration-300"
+            whileHover={{ y: -10 }}
+            className="group relative"
           >
-            {/* Icon */}
-            <motion.div
-              whileHover={{ scale: 1.2, rotate: 10 }}
-              className="text-5xl text-blue-400 mb-6 inline-block group-hover:text-gradient transition-colors"
+            {/* Animated gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-purple-500/0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+
+            <div className="relative card-hover bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-blue-500/20 group-hover:border-blue-400/50 transition-all duration-300 h-full flex flex-col"
             >
-              {service.icon}
-            </motion.div>
+              {/* Icon */}
+              <motion.div
+                whileHover={{ scale: 1.2, rotate: 15 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="text-5xl text-blue-400 mb-6 inline-block group-hover:text-gradient transition-colors"
+              >
+                {service.icon}
+              </motion.div>
 
-            {/* Title */}
-            <h3 className="text-xl font-bold text-white mb-3">
-              {service.title}
-            </h3>
+              {/* Title */}
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:gradient-text transition-all">
+                {service.title}
+              </h3>
 
-            {/* Description */}
-            <p className="text-gray-400 mb-6 leading-relaxed">
-              {service.description}
-            </p>
+              {/* Description */}
+              <p className="text-gray-400 mb-6 leading-relaxed flex-grow">
+                {service.description}
+              </p>
 
-            {/* Features */}
-            <ul className="space-y-2">
-              {service.features.map((feature, idx) => (
-                <motion.li
-                  key={idx}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex items-center gap-2 text-gray-300 text-sm"
-                >
-                  <span className="w-2 h-2 rounded-full bg-blue-400"></span>
-                  {feature}
-                </motion.li>
-              ))}
+              {/* Features */}
+              <ul className="space-y-2">
+                {service.features.map((feature, idx) => (
+                  <motion.li
+                    key={idx}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    viewport={{ once: true }}
+                    className="flex items-center gap-2 text-gray-300 text-sm group-hover:text-blue-300 transition-colors"
+                  >
+                    <motion.span
+                      whileHover={{ scale: 1.5 }}
+                      className="w-2 h-2 rounded-full bg-blue-400"
+                    ></motion.span>
+                    {feature}
+                  </motion.li>
+                ))}
             </ul>
 
             {/* Learn More Link */}
