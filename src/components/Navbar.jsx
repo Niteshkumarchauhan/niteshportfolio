@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
 import { motion } from "framer-motion";
-import logo from "./assets/Logo.png";
+import logo from "./assets/Logo.svg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
