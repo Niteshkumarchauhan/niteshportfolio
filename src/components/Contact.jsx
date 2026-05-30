@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   FaEnvelope,
@@ -7,10 +7,8 @@ import {
   FaCheckCircle,
   FaExclamationCircle,
 } from "react-icons/fa";
-// import emailjs from "emailjs-com";
 
 const Contact = () => {
-  const form = useRef();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -65,15 +63,27 @@ const Contact = () => {
     setError("");
 
     try {
-      emailjs.init("VxvBAQnlI4KCgJArX");
-      await emailjs.sendForm(
-        "service_u5g7vjf",
-        "template_6bkbmds",
-        form.current,
-      );
-      setSubmitted(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setSubmitted(false), 5000);
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "837a8c7f-1d72-4dfd-8d5e-d9bddc5279ae",
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        setError("Failed to send message. Please try again.");
+      }
     } catch (err) {
       setError("Failed to send message. Please try again or contact directly.");
       console.error("Email error:", err);
@@ -171,7 +181,7 @@ const Contact = () => {
           viewport={{ once: true }}
           className="lg:col-span-2"
         >
-          <form ref={form} onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Error Message */}
             {error && (
               <motion.div
