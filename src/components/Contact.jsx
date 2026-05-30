@@ -7,7 +7,7 @@ import {
   FaCheckCircle,
   FaExclamationCircle,
 } from "react-icons/fa";
-import emailjs from "emailjs-com";
+// import emailjs from "emailjs-com";
 
 const Contact = () => {
   const form = useRef();

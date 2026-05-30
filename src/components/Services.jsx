@@ -115,8 +115,7 @@ const Services = () => {
             {/* Animated gradient background */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-purple-500/0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
 
-            <div className="relative card-hover bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-blue-500/20 group-hover:border-blue-400/50 transition-all duration-300 h-full flex flex-col"
-            >
+            <div className="relative card-hover bg-slate-800/50 backdrop-blur-sm p-8 rounded-xl border border-blue-500/20 group-hover:border-blue-400/50 transition-all duration-300 h-full flex flex-col">
               {/* Icon */}
               <motion.div
                 whileHover={{ scale: 1.2, rotate: 15 }}
@@ -154,8 +153,8 @@ const Services = () => {
                     {feature}
                   </motion.li>
                 ))}
-            </ul>
-
+              </ul>
+            </div>
             {/* Learn More Link */}
             <motion.button
               whileHover={{ x: 5 }}
